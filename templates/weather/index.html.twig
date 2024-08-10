@@ -1,0 +1,118 @@
+{% extends 'base.html.twig' %}
+{% block title %}Weather App
+{% endblock %}
+
+{% block body %}
+	<style>
+		#app {
+			max-width: 600px;
+			margin: 50px auto;
+			padding: 20px;
+			border: 1px solid #ccc;
+			border-radius: 8px;
+			box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+			text-align: center;
+			font-family: Arial, sans-serif;
+		}
+
+		h1 {
+			margin-bottom: 20px;
+		}
+
+		input[type="text"] {
+			width: 80%;
+			padding: 10px;
+			margin-bottom: 20px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+		}
+
+		button {
+			padding: 10px 20px;
+			background-color: #007bff;
+			color: #fff;
+			border: none;
+			border-radius: 4px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #0056b3;
+		}
+
+		#weatherData {
+			margin-top: 20px;
+			text-align: left;
+		}
+
+		#weatherData h2 {
+			margin-bottom: 10px;
+		}
+
+		#weatherData p {
+			margin: 5px 0;
+		}
+	</style>
+
+	<div id="app">
+		<h1>Weather App</h1>
+		<input type="text" id="cityInput" placeholder="Enter City Name">
+		<button onclick="getWeather()">Get Weather</button>
+		<div id="weatherData"></div>
+	</div>
+
+	<script>
+		function getWeather() {
+const city = document.getElementById('cityInput').value;
+if (! city) {
+alert('Please enter a city name.');
+return;
+}
+
+fetch (`/api/weather?city=${
+encodeURIComponent(city)
+}`).then(response => {
+if (!response.ok) {
+throw new Error('Failed to fetch weather data.');
+}
+return response.json();
+}).then(data => {
+displayWeatherData(data);
+}).catch(error => {
+console.error(error);
+alert('Failed to fetch weather data.');
+});
+}
+
+function displayWeatherData(data) {
+const weatherDataDiv = document.getElementById('weatherData');
+if (data.error) {
+weatherDataDiv.innerHTML = `<p>${
+data.error
+}</p>`;
+} else {
+weatherDataDiv.innerHTML = `
+                    <h2>Weather Information for ${
+data.name
+}</h2>
+                    <p>Temperature: ${
+data.main.temp
+}°C</p>
+                    <p>Description: ${
+data.weather[0].description
+}</p>
+                    <p>Humidity: ${
+data.main.humidity
+}%</p>
+                    <p>Wind Speed: ${
+data.wind.speed
+} m/s</p>
+                    <p>Cloudiness: ${
+data.clouds.all
+}%</p>
+                `;
+}
+}
+	</script>
+{% endblock %}
+
