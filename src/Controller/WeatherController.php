@@ -1,6 +1,5 @@
 <?php
 
-// src/Controller/WeatherController.php
 
 namespace App\Controller;
 
