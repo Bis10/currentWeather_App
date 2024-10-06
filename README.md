@@ -27,5 +27,5 @@ http://127.0.0.1:8007
 ## Author
 Bishnu
 
-- GitHub: [@Bis10](https://github.com/Bis10)
+- GitHub: [@bishnu-suyel](https://github.com/bishnu-suyel)
 - [LinkedIn: linkedin.com/in/bishnu-suyel](https://www.linkedin.com/in/bishnu-suyel/)
